@@ -7,18 +7,15 @@
 import numpy as np
 
 def compute_nrmse(gt, test):
-    """
-    gt: ground truth 배열
-    test: 예측 또는 비교할 배열
-    """
+
     if gt.shape != test.shape:
-        raise ValueError("입력 배열의 크기가 서로 달라요.")
+        raise ValueError("Different array size")
 
     mse_val = np.mean((gt - test) ** 2)
     norm_factor = np.max(gt) - np.min(gt)
 
     if norm_factor == 0:
-        print("경고: 정규화 기준이 0입니다. NRMSE 계산 불가")
+        print("NRMSE calculate failed")
         return np.nan
 
     return np.sqrt(mse_val) / norm_factor
@@ -375,17 +372,17 @@ def baplot(my_vals, ref_vals, axis_range=None, title='Bland-Altman Plot'):
     plt.figure(figsize=(6, 5))
     plt.scatter(means, diffs, color='royalblue', edgecolor='k', s=60, alpha=0.8, label='Data Points')
 
-    # 기준선 그리기
+   
     plt.axhline(mean_diff, color='black', linestyle='--', linewidth=2, label='Mean Diff')
     plt.axhline(loa_upper, color='red', linestyle='--', linewidth=2, label='+1.96 SD')
     plt.axhline(loa_lower, color='red', linestyle='--', linewidth=2, label='-1.96 SD')
 
-    # 텍스트 표시
+   
     plt.text(means.min(), loa_upper + 0.2, f'+1.96 SD = {loa_upper:.2f}', color='red', fontsize=10)
     plt.text(means.min(), mean_diff + 0.2, f'Mean Diff = {mean_diff:.2f}', color='black', fontsize=10)
     plt.text(means.min(), loa_lower + 0.2, f'-1.96 SD = {loa_lower:.2f}', color='red', fontsize=10)
 
-    # 축 및 기타 설정
+   
     plt.xlabel('Mean of My Value and Reference', fontsize=12)
     plt.ylabel('Difference (My - Reference)', fontsize=12)
     plt.title(title, fontsize=14, fontweight='bold')
