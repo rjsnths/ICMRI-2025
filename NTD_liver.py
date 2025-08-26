@@ -340,7 +340,7 @@ def load_h5py(filename, rmod='r'):
             arr[k] = np.transpose(np.array(v))
         return arr
 
-path_mat    =   '/mnt/hdd1/users/jcho/IDEAL-net/mat/'
+path_mat    =   'file_path'
 str_dat     =   sio.loadmat(path_mat + 'Axial_Liver_3T_multicoil_12echo.mat')
 img_ref     =   np.squeeze(str_dat['imDataParams']['images'].item())
 
